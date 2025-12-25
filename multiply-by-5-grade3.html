@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>الضرب في ٥ - الصف الثالث</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap');
+    *{font-family:"Tajawal",system-ui,sans-serif}
+    .card{box-shadow:0 18px 60px rgba(15,23,42,.12)}
+    .btn{border-radius:18px;font-weight:800;padding:14px 18px}
+    .pill{border-radius:999px;padding:6px 12px;font-weight:800;font-size:13px}
+    .pop{animation:pop .35s ease-in-out}
+    @keyframes pop{0%{transform:scale(.98)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+    .shake{animation:shake .35s ease-in-out}
+    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(6px)}50%{transform:translateX(-6px)}75%{transform:translateX(4px)}}
+
+    .dot{width:24px;height:24px;border-radius:999px;background:radial-gradient(circle at 30% 30%, rgba(253,230,138,1), rgba(245,158,11,1));border:2px solid rgba(0,0,0,.08);box-shadow:0 6px 14px rgba(0,0,0,.10)}
+    .miniDot{width:14px;height:14px;border-radius:999px;border:1.5px solid rgba(0,0,0,.10);background:radial-gradient(circle at 30% 30%, rgba(253,230,138,1), rgba(245,158,11,1))}
+    .groupBox{border-radius:22px;border:2px solid rgba(236,72,153,.18);background:rgba(255,255,255,.85);padding:12px 14px}
+    .numInput{width:88px;height:56px;text-align:center;font-size:26px;font-weight:900;border-width:4px;border-radius:18px;outline:none;background:#fff}
+    .numInput:focus{box-shadow:0 0 0 6px rgba(236,72,153,.18)}
+    .eqBox{min-width:70px;height:56px;display:flex;align-items:center;justify-content:center;border-width:4px;border-radius:18px;font-size:26px;font-weight:900;background:#fff}
+    .nlWrap{border-radius:22px;border:2px solid rgba(99,102,241,.20);background:rgba(255,255,255,.90);padding:14px}
+    @media(max-width:640px){
+      .dot{width:21px;height:21px}
+      .numInput{width:78px;height:54px;font-size:24px}
+      .eqBox{min-width:62px;height:54px;font-size:24px}
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-amber-50 via-white to-emerald-50">
+  <div class="max-w-6xl mx-auto px-4 py-6">
+    <div class="bg-white/90 backdrop-blur rounded-3xl card p-6 border border-amber-100">
+      <div class="text-center">
+        <div class="text-2xl md:text-3xl font-extrabold text-slate-800">الضَّرْبُ فِي ٥</div>
+
+        <div class="mt-3 grid md:grid-cols-2 gap-3 w-full max-w-4xl mx-auto">
+          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+            <div class="font-extrabold text-emerald-800">فِكْرَةُ الدَّرْسِ</div>
+            <div class="text-slate-700 font-bold mt-1">أَجِدُ ناتِجَ الضَّرْبِ فِي العَدَدِ ٥.</div>
+          </div>
+          <div class="rounded-2xl border border-purple-200 bg-purple-50 px-4 py-3">
+            <div class="font-extrabold text-purple-800">فكرة سريعة</div>
+            <div class="text-slate-700 font-bold mt-1">نعدّ بالـ٥: ٥، ١٠، ١٥، ٢٠…</div>
+          </div>
+        </div>
+
+        <div class="mt-2 text-slate-600 leading-7">
+          الضرب في ٥ يعني مجموعات متساوية، في كل مجموعة <b>٥</b> عناصر.
+          وتلميح: نواتج جدول ٥ تنتهي بـ <b>٠ أو ٥</b>.
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-2 justify-center">
+        <button id="tab-learn" class="btn bg-pink-600 text-white">تعلم</button>
+        <button id="tab-examples" class="btn bg-white text-slate-700 border-2 border-pink-200">أمثلة</button>
+        <button id="tab-practice" class="btn bg-white text-slate-700 border-2 border-pink-200">تدرب</button>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <!-- Learn -->
+      <section id="section-learn" class="bg-white rounded-3xl card p-6 border border-amber-100">
+        <div class="grid lg:grid-cols-2 gap-6 items-start">
+          <div class="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+            <div class="font-extrabold text-slate-800 text-lg mb-2">اختاري عدد المجموعات (كل مجموعة فيها ٥)</div>
+            <div class="flex flex-wrap items-center gap-3">
+              <label class="font-bold text-slate-700">عدد المجموعات:</label>
+              <input id="learnN" type="range" min="0" max="10" value="3" class="w-56"/>
+              <span id="learnNVal" class="pill bg-white border border-slate-200 text-slate-700">٣</span>
+              <span class="pill bg-white border border-purple-200 text-slate-700">في كل مجموعة: ٥</span>
+            </div>
+
+            <div class="mt-4 grid md:grid-cols-2 gap-4">
+              <div class="rounded-2xl bg-white border border-slate-200 p-4">
+                <div class="font-extrabold text-slate-800 mb-2">الطريقة ١: صورة (مجموعات)</div>
+                <div id="learnGroups" class="flex flex-wrap gap-3 justify-center"></div>
+              </div>
+              <div class="rounded-2xl bg-white border border-slate-200 p-4">
+                <div class="font-extrabold text-slate-800 mb-2">الطريقة ٢: عدّ بالـ٥</div>
+                <div id="learnSkip" class="text-slate-700 font-bold leading-8"></div>
+              </div>
+            </div>
+
+            <div class="mt-4 rounded-2xl bg-white border border-slate-200 p-4">
+              <div class="font-extrabold text-slate-800 mb-2">الطريقة ٣: خط الأعداد (قفزات ٥)</div>
+              <div class="nlWrap"><div id="learnLine"></div></div>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-emerald-100 bg-white p-5">
+            <div class="font-extrabold text-slate-800 text-lg mb-2">اكتبي جملة الضرب</div>
+            <div class="text-slate-600 mb-3">نكتبها بالعربي: <span dir="ltr" class="font-extrabold text-purple-700">الناتج = ٥ × عدد المجموعات</span></div>
+
+            <div class="flex flex-wrap items-center justify-center gap-3" dir="rtl">
+              <div id="learnProduct" class="eqBox border-pink-500 text-slate-800"></div>
+              <div class="eqBox border-slate-200 text-slate-600" dir="ltr">=</div>
+              <div class="eqBox border-pink-500 text-slate-800">٥</div>
+              <div class="eqBox border-slate-200 text-slate-600" dir="ltr">×</div>
+              <div id="learnFactor" class="eqBox border-pink-500 text-slate-800"></div>
+            </div>
+
+            <div class="mt-4 rounded-2xl border border-purple-200 bg-purple-50 p-4 text-slate-700 leading-7">
+              <div class="font-extrabold text-purple-800 mb-1">علاقة جدول ٥ وجدول ١٠</div>
+              <div>ناتج (٥×n) هو <b>نصف</b> ناتج (١٠×n).</div>
+              <div class="mt-2" dir="ltr"><span class="font-extrabold text-emerald-700">٥×n</span> = <span class="font-extrabold text-purple-700">١٠×n</span> ÷ ٢</div>
+            </div>
+
+            <div class="mt-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-slate-700 leading-7">
+              <div class="font-extrabold text-amber-800 mb-1">تلميح النهايات</div>
+              <div>نواتج الضرب في ٥ تنتهي بـ <b>٠</b> أو <b>٥</b>.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Examples -->
+      <section id="section-examples" class="hidden bg-white rounded-3xl card p-6 border border-amber-100">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+          <div class="font-extrabold text-xl text-slate-800">أمثلة محلولة</div>
+          <div class="text-sm text-slate-500">اضغطي على المثال لعرض الحل</div>
+        </div>
+        <div id="examplesList" class="grid md:grid-cols-2 gap-4"></div>
+      </section>
+
+      <!-- Practice -->
+      <section id="section-practice" class="hidden bg-white rounded-3xl card p-6 border border-amber-100">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div class="font-extrabold text-xl text-slate-800">تدريب: الضرب في ٥</div>
+            <div class="text-slate-600">شاهدي النموذج ثم اكتبي عدد المجموعات والناتج.</div>
+          </div>
+          <div class="rounded-2xl bg-slate-50 border border-slate-200 px-4 py-3">
+            <div class="font-bold text-slate-700">النتيجة</div>
+            <div class="text-slate-700">⭐ <span id="score">٠</span> / <span id="total">٠</span></div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid lg:grid-cols-2 gap-6 items-start">
+          <div class="rounded-3xl border border-pink-100 bg-gradient-to-b from-white to-pink-50 p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="font-extrabold text-slate-800">النموذج</div>
+              <button id="btnNew" class="btn bg-purple-600 text-white">سؤال جديد</button>
+            </div>
+
+            <div id="practicePrompt" class="text-slate-700 font-bold text-center mb-3"></div>
+            <div id="practiceModel" class="flex flex-wrap justify-center gap-3"></div>
+
+            <div class="mt-5 rounded-2xl bg-white border border-slate-200 p-4">
+              <div class="font-extrabold text-slate-800 text-center mb-2">اكتبي الناتج:</div>
+
+              <div class="flex flex-wrap items-center justify-center gap-3" dir="rtl">
+                <input id="inP" class="numInput border-pink-500 text-slate-800" inputmode="numeric" maxlength="3" placeholder="؟" />
+                <div class="eqBox border-slate-200 text-slate-600" dir="ltr">=</div>
+                <input class="numInput border-pink-500 text-slate-800" value="٥" disabled />
+                <div class="eqBox border-slate-200 text-slate-600" dir="ltr">×</div>
+                <input id="inN" class="numInput border-pink-500 text-slate-800" inputmode="numeric" maxlength="2" placeholder="؟" />
+              </div>
+
+              <div class="mt-3 text-center text-sm text-slate-500">
+                اكتبيها: <span dir="ltr" class="font-extrabold text-purple-700">الناتج = ٥ × عدد المجموعات</span>
+              </div>
+
+              <div class="mt-4 flex gap-3 justify-center">
+                <button id="btnCheck" class="btn bg-emerald-600 text-white w-44">تحقق ✅</button>
+                <button id="btnHint" class="btn bg-white border-2 border-purple-200 text-slate-700 w-44">تلميح 💡</button>
+              </div>
+
+              <div class="mt-3 flex justify-center">
+                <button id="btnShow" class="btn bg-white border-2 border-slate-200 text-slate-700 w-72">أظهر الحل</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-5">
+            <div class="font-extrabold text-slate-800 mb-2">التغذية الراجعة والشرح</div>
+            <div id="feedback" class="text-slate-700 leading-7">
+              اكتبي عدد المجموعات والناتج ثم اضغطي <b>تحقق</b>. تذكري: الناتج ينتهي بـ ٠ أو ٥.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="mt-8 text-center text-slate-600">
+      <div class="bg-white/80 inline-block px-4 py-3 rounded-2xl border border-slate-200">
+        <span class="font-bold">أ/ فاطمة هزازي</span> • ملتقى معلمي ومعلمات الرياضيات • الملتقى التفاعلي
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ar=['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+    const toArabic=(n)=>{if(!Number.isFinite(n))return '';return String(Math.trunc(n)).split('').map(ch=>{if(ch==='-')return '−';const d=ch.charCodeAt(0)-48;return (d>=0&&d<=9)?ar[d]:ch;}).join('');};
+    const normDigits=(str)=>{if(str==null)return "";const map={'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9','۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9'};return String(str).trim().split('').map(ch=>map[ch]??ch).join('');};
+    const randInt=(min,max)=>Math.floor(Math.random()*(max-min+1))+min;
+
+    // Tabs
+    const tabs=[{btn:'tab-learn',sec:'section-learn'},{btn:'tab-examples',sec:'section-examples'},{btn:'tab-practice',sec:'section-practice'}];
+    function setTab(active){
+      tabs.forEach(t=>{
+        const b=document.getElementById(t.btn), s=document.getElementById(t.sec);
+        const on=t.btn===active;
+        s.classList.toggle('hidden',!on);
+        b.className=on?'btn bg-pink-600 text-white':'btn bg-white text-slate-700 border-2 border-pink-200';
+      });
+    }
+    document.getElementById('tab-learn').onclick=()=>setTab('tab-learn');
+    document.getElementById('tab-examples').onclick=()=>setTab('tab-examples');
+    document.getElementById('tab-practice').onclick=()=>setTab('tab-practice');
+
+    function renderGroups(container,n){
+      container.innerHTML='';
+      if(n===0){
+        const box=document.createElement('div');
+        box.className='rounded-2xl bg-white border border-slate-200 px-4 py-3 text-slate-700 font-bold';
+        box.textContent='لا توجد مجموعات (٠).';
+        container.appendChild(box);
+        return;
+      }
+      for(let i=0;i<n;i++){
+        const g=document.createElement('div');
+        g.className='groupBox';
+        g.innerHTML=`<div class="text-slate-700 font-extrabold text-sm mb-2">مجموعة ${toArabic(i+1)}</div>
+          <div class="flex gap-2 justify-center">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          </div>`;
+        container.appendChild(g);
+      }
+    }
+
+    function renderSkip(container,n){
+      const total=n*5;
+      if(n===0){container.innerHTML=`لا يوجد عدّ. الناتج <b>${toArabic(0)}</b>.`;return;}
+      const seq=[]; for(let i=1;i<=n;i++) seq.push(i*5);
+      container.innerHTML=`<div>أعدّ بالـ٥: <span dir="ltr" class="font-extrabold text-purple-700">${seq.map(toArabic).join(' ، ')}</span></div>
+        <div class="mt-2">إذن الناتج = <b class="text-emerald-700">${toArabic(total)}</b></div>
+        <div class="mt-2 text-slate-600">النهايات: ${toArabic(total)} تنتهي بـ <b>${toArabic(total%10)}</b>.</div>`;
+    }
+
+    function renderNumberLine(target,n){
+      const max=Math.max(10,n*5);
+      const width=560,height=130,pad=35,x0=pad,x1=width-pad,y=80,steps=max,dx=(x1-x0)/steps;
+
+      const ticks=[];
+      for(let i=0;i<=steps;i++){
+        const x=x0+dx*i;
+        const major=(i%5===0);
+        ticks.push(`<line x1="${x}" y1="${y-(major?12:8)}" x2="${x}" y2="${y+(major?12:8)}" stroke="#0f172a" stroke-width="${major?3:2}" opacity="${major?1:0.55}"/>${major?`<text x="${x}" y="${y+36}" font-size="16" font-weight="800" text-anchor="middle" fill="#0f172a">${toArabic(i)}</text>`:''}`);
+      }
+
+      const arcs=[];
+      for(let k=0;k<n;k++){
+        const a=5*k,b=5*(k+1),xa=x0+dx*a,xb=x0+dx*b,mid=(xa+xb)/2,arcH=32+(k%2)*8;
+        arcs.push(`<path d="M ${xa} ${y-4} Q ${mid} ${y-arcH} ${xb} ${y-4}" fill="none" stroke="#ef4444" stroke-width="3"/><polygon points="${xb-8},${y-10} ${xb+2},${y-4} ${xb-8},${y+2}" fill="#ef4444"/>`);
+      }
+
+      target.innerHTML=`<svg width="100%" viewBox="0 0 ${width} ${height}" role="img" aria-label="خط الأعداد">
+        <line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+        ${ticks.join('')}${arcs.join('')}
+      </svg>`;
+    }
+
+    function updateLearn(n){
+      document.getElementById('learnNVal').textContent=toArabic(n);
+      renderGroups(document.getElementById('learnGroups'),n);
+      renderSkip(document.getElementById('learnSkip'),n);
+      document.getElementById('learnFactor').textContent=toArabic(n);
+      document.getElementById('learnProduct').textContent=toArabic(n*5);
+      renderNumberLine(document.getElementById('learnLine'),n);
+    }
+    const learnN=document.getElementById('learnN');
+    learnN.addEventListener('input',()=>updateLearn(parseInt(learnN.value,10)));
+    updateLearn(parseInt(learnN.value,10));
+
+    // Examples
+    const exampleBank=[{n:2,text:"أكرر العدد ٥ مرتين."},{n:3,text:"أعد قفزًا بالـ٥ ثلاث مرات."},{n:4,text:"أستعمل خط الأعداد: ٤ قفزات مقدارها ٥."},{n:6,text:"أستعمل علاقة ٥ و١٠: نصف ١٠×٦."}];
+    function miniModel(n){
+      if(n===0) return `<div class="rounded-2xl bg-white border border-slate-200 px-4 py-3 font-bold text-slate-700">٠</div>`;
+      return `<div class="flex flex-wrap gap-3 justify-center">${Array.from({length:n},(_,i)=>`
+        <div class="rounded-2xl border border-slate-200 bg-white px-3 py-2 text-center">
+          <div class="text-xs font-extrabold text-slate-700">مجموعة ${toArabic(i+1)}</div>
+          <div class="mt-2 flex gap-2 justify-center">${'<div class="miniDot"></div>'.repeat(5)}</div>
+        </div>`).join('')}</div>`;
+    }
+    function renderExamples(){
+      const container=document.getElementById('examplesList');
+      container.innerHTML='';
+      exampleBank.forEach((ex,idx)=>{
+        const total=ex.n*5;
+        const seq=Array.from({length:ex.n},(_,i)=>toArabic((i+1)*5)).join(' ، ');
+        const ten = ex.n*10;
+        const relation = `١٠×${toArabic(ex.n)} = ${toArabic(ten)} ثم نصفه = ${toArabic(total)}`;
+        const card=document.createElement('div');
+        card.className='rounded-3xl border border-slate-200 bg-slate-50 p-5 cursor-pointer hover:shadow-lg transition';
+        card.innerHTML=`
+          <div class="font-extrabold text-slate-800 mb-2">مثال ${toArabic(idx+1)}</div>
+          <div class="text-slate-700 leading-7">${ex.text}</div>
+          <div class="mt-3">${miniModel(ex.n)}</div>
+          <div id="ex-${idx}" class="hidden mt-4 rounded-2xl bg-white border border-slate-200 p-4 text-slate-700 leading-7">
+            <div class="font-extrabold text-slate-800 mb-2">الحل</div>
+            <div><b>العد بالـ٥:</b> <span dir="ltr" class="font-extrabold text-purple-700">${seq || toArabic(0)}</span></div>
+            <div class="mt-2"><b>جملة الضرب:</b> <span dir="ltr" class="font-extrabold text-emerald-700">٥ × ${toArabic(ex.n)} = ${toArabic(total)}</span></div>
+            <div class="mt-3 rounded-2xl bg-purple-50 border border-purple-200 p-3">
+              <b>علاقة جدول ٥ وجدول ١٠:</b><br/>${relation}
+            </div>
+          </div>
+          <div class="mt-3 text-sm text-pink-600 font-bold">اضغطي لعرض/إخفاء الحل</div>
+        `;
+        card.onclick=()=>document.getElementById(`ex-${idx}`).classList.toggle('hidden');
+        container.appendChild(card);
+      });
+    }
+    renderExamples();
+
+    // Practice
+    let pstate={n:3,score:0,total:0,locked:false};
+    const scoreEl=document.getElementById('score');
+    const totalEl=document.getElementById('total');
+    const feedbackEl=document.getElementById('feedback');
+
+    function animateFeedback(kind){feedbackEl.classList.remove('shake','pop');void feedbackEl.offsetWidth;feedbackEl.classList.add(kind==='good'?'pop':'shake');}
+    function setFeedback(html,kind){feedbackEl.innerHTML=html;animateFeedback(kind);}
+
+    function clearInputs(){['inP','inN'].forEach(id=>document.getElementById(id).value='');}
+    function practiceGen(){
+      pstate.n=randInt(0,10);
+      pstate.locked=false;
+      document.getElementById('practicePrompt').textContent=`${toArabic(pstate.n)} مجموعات، في كل مجموعة ٥.`;
+      renderGroups(document.getElementById('practiceModel'),pstate.n);
+      clearInputs();
+      setFeedback('اكتبي عدد المجموعات والناتج ثم اضغطي <b>تحقق</b>. تذكري: النواتج تنتهي بـ ٠ أو ٥.','good');
+    }
+    function readNum(id){const raw=normDigits(document.getElementById(id).value).replace(/\D/g,'');return raw===''?null:parseInt(raw,10);}
+    function check(){
+      if(pstate.locked) return;
+      const pIn=readNum('inP'), nIn=readNum('inN');
+      if(pIn===null||nIn===null){setFeedback('⚠️ اكتبي العددين (عدد المجموعات والناتج).','bad');return;}
+      const correct=(nIn===pstate.n)&&(pIn===pstate.n*5);
+      pstate.total+=1; if(correct) pstate.score+=1;
+      scoreEl.textContent=toArabic(pstate.score); totalEl.textContent=toArabic(pstate.total);
+      pstate.locked=true;
+      if(correct){
+        setFeedback(`<div class="font-extrabold text-emerald-700 text-lg">أحسنتِ! ✅</div>
+          <div class="mt-2"><b>جملة الضرب:</b> <span dir="ltr" class="font-extrabold text-purple-700">٥ × ${toArabic(pstate.n)} = ${toArabic(pstate.n*5)}</span></div>
+          <div class="mt-2 text-slate-600">انظري للنهاية: الناتج ينتهي بـ ${toArabic((pstate.n*5)%10)}.</div>`,'good');
+      } else {
+        setFeedback(`<div class="font-extrabold text-rose-700 text-lg">حاولي مرة أخرى 💡</div>
+          <div class="mt-2"><b>الصحيح:</b> <span dir="ltr" class="font-extrabold text-purple-700">٥ × ${toArabic(pstate.n)} = ${toArabic(pstate.n*5)}</span></div>
+          <div class="mt-2">عدّي بالـ٥: <span dir="ltr">${Array.from({length:pstate.n},(_,i)=>toArabic((i+1)*5)).join(' ، ') || toArabic(0)}</span></div>`,'bad');
+      }
+    }
+    function hint(){
+      const ten = pstate.n*10;
+      setFeedback(`<div class="font-extrabold text-slate-800">تلميح 💡</div>
+        <div class="mt-1">عدّي بالـ٥: <span dir="ltr" class="font-extrabold text-purple-700">${Array.from({length:pstate.n},(_,i)=>toArabic((i+1)*5)).join(' ، ') || toArabic(0)}</span></div>
+        <div class="mt-2">أو استخدمي علاقة ١٠: ١٠×${toArabic(pstate.n)}=${toArabic(ten)} ثم نصفه = ${toArabic(pstate.n*5)}.</div>`,'good');
+    }
+    function show(){
+      const ten = pstate.n*10;
+      setFeedback(`<div class="font-extrabold text-slate-800">الحل ✅</div>
+        <div class="mt-2"><b>الناتج:</b> ${toArabic(pstate.n*5)}</div>
+        <div><b>جملة الضرب:</b> <span dir="ltr" class="font-extrabold text-purple-700">٥ × ${toArabic(pstate.n)} = ${toArabic(pstate.n*5)}</span></div>
+        <div class="mt-2 text-slate-600">علاقة ٥ و١٠: ١٠×${toArabic(pstate.n)}=${toArabic(ten)} ثم نصفه = ${toArabic(pstate.n*5)}.</div>`,'good');
+    }
+
+    document.getElementById('btnNew').onclick=practiceGen;
+    document.getElementById('btnCheck').onclick=check;
+    document.getElementById('btnHint').onclick=hint;
+    document.getElementById('btnShow').onclick=show;
+
+    ['inP','inN'].forEach(id=>{
+      const el=document.getElementById(id);
+      el.addEventListener('input',()=>{
+        const raw=normDigits(el.value).replace(/\D/g,'');
+        const maxLen=(id==='inP')?3:2;
+        el.value=raw.slice(0,maxLen);
+      });
+      el.addEventListener('keydown',(e)=>{if(e.key==='Enter') check();});
+    });
+
+    scoreEl.textContent=toArabic(0);
+    totalEl.textContent=toArabic(0);
+    practiceGen();
+    setTab('tab-learn');
+  </script>
+</body>
+</html>
